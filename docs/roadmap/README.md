@@ -8,6 +8,12 @@ This roadmap is an implementation plan. All increment and subtask checkboxes sta
 
 The architectural baseline is the [ownership/directory plan](../architecture.md), [verification strategy](../verification.md), and [performance contract](../performance.md). External precedents and their limits are recorded in [research sources](../research-sources.md). Commands and future schemas in these documents are proposed interfaces, not currently implemented commands.
 
+## Rust and compiler-framework boundary
+
+[ADR-0001](../adr/0001-rust-core-external-compiler-boundary.md) makes the long-term decision explicit: Nodal-EDA has a Rust core/CLI, with no required in-process LLVM/MLIR/CIRCT compiler infrastructure and no new Scala frontend. Nodal-HDL retains its MLIR-based compilation; Nodal-EDA invokes qualified compiler engines through versioned adapters and consumes artifacts, diagnostics and provenance. This remains the boundary for commercial and high-end profiles, not only the MVP.
+
+Foundation must build and run core/fake-tool checks without separately installed compiler-framework SDKs or the Nodal compiler stack. TOOL-02/VER-02 qualify a traditional HDL path independently; TOOL-04 qualifies the actual Nodal compiler dependency and failure/upgrade isolation. VER-05/VER-06 repeat these gates for releases. Ordinary Rust/platform build utilities are not banned, and selected external compiler packages may contain MLIR/CIRCT. See the ADR's acceptance matrix for exact existing child-task ownership. These clarifications do not complete tasks or add an MLIR implementation track.
+
 ## Track registry
 
 | Track | File | Increments | Entry gate | Purpose |

@@ -2,16 +2,18 @@
 
 This track establishes executable contracts, not only design documents. All other tracks are blocked by FND-10. Foundation has its own tests and does not depend on VER. Follow the [completion policy](../completion-policy.md) and [performance profiles](../../performance.md). Every checkbox below is implementation work, initially uncompleted.
 
+The compiler-independent core acceptance rules in [ADR-0001](../../adr/0001-rust-core-external-compiler-boundary.md) are part of FND-01, FND-09 and FND-10. They apply to application dependencies, not the implementation of approved Rust/platform build utilities.
+
 - [ ] **FND-01 — Workspace, ownership and progress discipline**
   - **Depends on:** none.
   - **Capability / modules:** Build a minimal Rust CLI; establish ownership and `eda-contracts` plus `apps/cli`, maintenance tools and ADRs.
-  - **Budget / non-goals:** B0; no empty future-crate forest, GUI, MLIR dependency or CAD algorithm implementation.
+  - **Budget / non-goals:** B0; no empty future-crate forest, GUI, MLIR/CIRCT compiler-framework dependency or CAD algorithm implementation.
   - [ ] **FND-01.1** Establish Cargo workspace, pinned toolchain, application lockfile, formatting/lint policy and a minimal version/help command.
-  - [ ] **FND-01.2** Ratify the architecture ownership table and dependency rules; identify interface owners in nodal-hdl and nodal-fpga without asserting their unverified capabilities.
+  - [ ] **FND-01.2** Ratify the architecture ownership table and ADR-0001 dependency rules; identify interface owners in nodal-hdl and nodal-fpga without asserting their unverified capabilities.
   - [ ] **FND-01.3** Implement documentation checks for unique increment/child IDs, task nesting, valid dependencies, cycles and closed parents with open descendants; ignore fenced examples.
   - [ ] **FND-01.4** Add tests proving partial child completion is accepted while premature parent closure and invalid dependencies fail; define the evidence-record format.
-  - [ ] **FND-01.5** Document development, contribution, dependency/license review and no-main-write conventions; add architecture-boundary tests for the initial workspace.
-  - [ ] **FND-01.6** Demonstrate clean build/help and successful/failed roadmap-check fixtures; record source/tree, commands and B0 measurements before closing.
+  - [ ] **FND-01.5** Document development, contribution, dependency/license review and no-main-write conventions; add architecture-boundary tests that inspect core dependency/features and build/link/load paths, rejecting an intentional in-process compiler-library dependency without banning approved host build utilities.
+  - [ ] **FND-01.6** Demonstrate clean core build/help without separately installed LLVM/MLIR/CIRCT SDKs, Nodal-HDL or JVM, plus successful/failed roadmap-check fixtures; record source/tree, allowed host dependencies, commands and B0 measurements before closing.
 
 - [ ] **FND-02 — Versioned contracts and compatibility semantics**
   - **Depends on:** FND-01.
@@ -96,7 +98,7 @@ This track establishes executable contracts, not only design documents. All othe
   - **Budget / non-goals:** B0-B3; no hardware or secrets required on untrusted PR runners.
   - [ ] **FND-09.1** Add unit/property, contract, fake-tool, cache-invalidation, fault-recovery and documentation-check suites for all foundation components.
   - [ ] **FND-09.2** Register deterministic fixture generators and independent expected outcomes; preserve random seeds and minimized failures.
-  - [ ] **FND-09.3** Define CI lanes, pinned dependencies, test result schema and fail/unknown/skipped distinctions; prevent missing tools from looking like passes.
+  - [ ] **FND-09.3** Define pinned CI lanes and test result schemas, including a compiler-independent core lane and separate capability-qualified engine lanes; apply ADR-0001 dependency checks and fail/unknown/skipped distinctions so absent tools never look like passes.
   - [ ] **FND-09.4** Record the reference host and pilot B0-B3 measurements, including parent/child resources and cold/warm differences; review any budget revision explicitly.
   - [ ] **FND-09.5** Verify same-input replay under a declared deterministic profile and expected invalidation for every key component; test clean offline execution.
   - [ ] **FND-09.6** Publish reproducible bootstrap commands and candidate-head evidence; show that intentional faults make the appropriate checks fail.
@@ -107,7 +109,7 @@ This track establishes executable contracts, not only design documents. All othe
   - **Budget / non-goals:** B0-B3; no claim of real synthesis, FPGA support or commercial qualification.
   - [ ] **FND-10.1** Run validated project -> planned actions -> supervised fake tools -> verified artifacts -> structured report with exact provenance.
   - [ ] **FND-10.2** Demonstrate cache replay, changed-input invalidation, cancellation, crash recovery and offline behavior in the integrated pipeline.
-  - [ ] **FND-10.3** Complete ownership/schema/adapter reviews, including large-artifact references, no-MLIR-core dependency and traditional HDL independence.
+  - [ ] **FND-10.3** Complete ownership/schema/adapter reviews and ADR-0001 acceptance: bounded artifact contracts, no in-process LLVM/MLIR/CIRCT dependency, and help/project/stored-report/fake-tool operations without the Nodal compiler stack. Real traditional-HDL independence is separately qualified by TOOL-02/VER-02, not claimed from mocks.
   - [ ] **FND-10.4** Pass all applicable foundation tests and budgets on the reviewed source; enumerate unsupported hosts and trust limitations.
   - [ ] **FND-10.5** Confirm every foundation child is implemented with evidence and the dependency graph has no circular gate through VER or other tracks.
   - [ ] **FND-10.6** Record final integrated acceptance evidence and a real CLI demonstration; only then mark this parent complete and unlock dependent tracks.

@@ -2,11 +2,13 @@
 
 Hard gate: FND-10. Tool availability is an external capability, not an assumption. Pin exact releases/commits, models and databases. See [sources S02/S03/S06](../../research-sources.md) and the [comparison limits](../../verification.md).
 
+Follow [ADR-0001](../../adr/0001-rust-core-external-compiler-boundary.md): compiler engines remain external and optional per selected flow; their LLVM/MLIR/CIRCT or Scala/JVM dependencies must not leak into the product core. A Nodal-source build still requires its qualified compiler package.
+
 - [ ] **TOOL-01 — Toolchain and device capability resolution**
   - **Depends on:** FND-10.
   - **Capability / modules:** Inspect a supported flow before running it; `eda-adapters`, `eda-packages`, ToolchainLock and DevicePackage.
   - **Budget / non-goals:** B0/B3; no automatic execution of discovered binaries or universal device support claims.
-  - [ ] **TOOL-01.1** Resolve exact tool binaries/runtime libraries/plugins and device/timing/configuration packages into immutable locked identities.
+  - [ ] **TOOL-01.1** Resolve exact tool binaries/runtime libraries/plugins and device/timing/configuration packages into immutable locked identities; distinguish base application dependencies from optional compiler/tool packages.
   - [ ] **TOOL-01.2** Define supported language subset, stage/media types, timing/constraint features, native checkpoint and programming capabilities per tuple.
   - [ ] **TOOL-01.3** Validate part/package/speed/revision consistency and reject mixed databases, unknown features and incompatible schema versions.
   - [ ] **TOOL-01.4** Add local/offline package discovery with explicit trust and missing-dependency diagnostics; document dependency redistribution notices.
@@ -22,7 +24,7 @@ Hard gate: FND-10. Tool availability is an external capability, not an assumptio
   - [ ] **TOOL-02.3** Normalize useful status/diagnostics with raw-log retention and schema-versioned parser fixtures; preserve opaque implementation artifacts.
   - [ ] **TOOL-02.4** Supply independent direct scripts and small positive/negative fixtures including arithmetic, registers and supported memories.
   - [ ] **TOOL-02.5** Validate supported constructs, constraint delivery and invalid/unroutable failures without silently substituting defaults.
-  - [ ] **TOOL-02.6** Demonstrate actual standalone adapter runs and locked reproducibility profile; record tool/device digests, B6 overhead and known limitations.
+  - [ ] **TOOL-02.6** Demonstrate actual standalone adapter runs and locked reproducibility on a host without Nodal-HDL, JVM or MLIR/CIRCT compiler packages; retain the qualified reference tools and allowed platform dependencies. Record tool/device digests, B6 overhead and known limitations.
 
 - [ ] **TOOL-03 — FABulous reference-fabric workflow**
   - **Depends on:** FND-10, TOOL-02, FLOW-02.
@@ -38,13 +40,13 @@ Hard gate: FND-10. Tool availability is an external capability, not an assumptio
 - [ ] **TOOL-04 — Nodal-HDL compiler adapter and source handoff**
   - **Depends on:** FND-10, TOOL-02, FLOW-02.
   - **Capability / modules:** Build Nodal projects using actual supported exports; `adapters/nodal-hdl`, compiler-export and provenance metadata.
-  - **Budget / non-goals:** B2/B3/B6; no MLIR runtime or new Scala frontend inside nodal-eda. A new direct mapped-netlist exporter is not required for this increment.
-  - [ ] **TOOL-04.1** Inspect and pin nodal-hdl's real CLI/export/source-map contracts; publish a tested support matrix instead of assuming native FPGA mapping exists.
-  - [ ] **TOOL-04.2** Integrate the supported Verilog-export-to-Yosys flow first, including compiler plugins, Scala/JVM runtime identity and generated dependencies.
+  - **Budget / non-goals:** B2/B3/B6; no in-process LLVM/MLIR/CIRCT runtime, pass manager or new Scala frontend inside nodal-eda. A new direct mapped-netlist exporter is not required for this increment.
+  - [ ] **TOOL-04.1** Inspect and pin nodal-hdl's real CLI/export/source-map contracts; publish a tested support matrix instead of assuming native FPGA mapping exists. Use supervised external processes and versioned artifact/result contracts, never live MLIR objects.
+  - [ ] **TOOL-04.2** Integrate the supported Verilog-export-to-Yosys flow first, including compiler plugins, Scala/JVM runtime identity and generated dependencies. Lock the compiler/exporter and its actual MLIR/CIRCT/tool-runtime dependency closure separately from the EDA core.
   - [ ] **TOOL-04.3** Implement capability negotiation: accept a direct mapped-netlist route only when both providers are qualified for it, otherwise select the verified Verilog fallback or explicitly reject a forced unsupported route; test that mapping is not duplicated.
-  - [ ] **TOOL-04.4** Preserve source identities, generated RTL and many-to-many provenance with explicit optimized-away/unavailable states.
-  - [ ] **TOOL-04.5** Test generated artifact mutation, compiler errors, mismatched schemas and non-Nodal projects that build without any JVM dependency.
-  - [ ] **TOOL-04.6** Record actual Nodal Scala source and actual generated Verilog plus E2E output and B6 evidence; unsupported optional paths stay capability-gated.
+  - [ ] **TOOL-04.4** Preserve source identities, generated RTL and many-to-many provenance with explicit optimized-away/unavailable states. Use exported metadata or bounded engine queries for views; store compiler checkpoints opaquely instead of parsing or transforming MLIR in the product core.
+  - [ ] **TOOL-04.5** Test generated artifact mutation, compiler errors/crashes/absence and mismatched schemas; keep non-Nodal/core operations usable without JVM/MLIR/CIRCT. Verify adapter/compiler/runtime/export identity changes invalidate affected caches without invalidating unrelated actions; never report a missing compiler as a successful Nodal build.
+  - [ ] **TOOL-04.6** Record actual Nodal Scala source and actual generated Verilog plus E2E output, ADR-0001 isolation/compatibility results and B6 evidence; unsupported optional paths stay capability-gated.
 
 - [ ] **TOOL-05 — Nodal-FPGA device package and bring-up contract**
   - **Depends on:** FND-10, TOOL-04, CON-02.
