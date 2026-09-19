@@ -2,6 +2,8 @@
 
 Hard gate: FND-10. CLI is a first-class product, not a GUI fallback. A desktop shell may use Tauri and TypeScript but must not own project semantics or CAD algorithms. Validate framework and OS prerequisites before adoption; see [source S09](../../research-sources.md#s09).
 
+Study [FOEDAG/Raptor and waveform references](../../reference-implementations.md) for interaction patterns, not as a requirement to adopt Qt or replace the Rust application boundary. DBG-02's first real capture is CLI plus export; DBG-03 offline indexing is independently testable. This desktop track does not block either. Source-aware Nodal/own-fabric claims additionally require DBG-05.
+
 - [ ] **UX-01 — Shared application API and accessible headless experience**
   - **Depends on:** FND-10, FLOW-02, CON-02.
   - **Capability / modules:** Consistent human/automation workflow; `eda-service`, CLI commands, application request/result contracts.
@@ -25,15 +27,15 @@ Hard gate: FND-10. CLI is a first-class product, not a GUI fallback. A desktop s
   - [ ] **UX-02.6** Demonstrate large synthetic views within B4/B7 and archive framework/deployment tradeoffs plus security evidence.
 
 - [ ] **UX-03 — Integrated pin, IP, programmer and debug workflows**
-  - **Depends on:** FND-10, UX-02, HW-02, DBG-02, IP-02.
+  - **Depends on:** FND-10, UX-02, HW-02, DBG-02, DBG-03, IP-02.
   - **Capability / modules:** Unified workflows through existing application APIs; planners/configurators and capture views.
   - **Budget / non-goals:** B4/B5/B7; GUI does not override target safety, constraints or engine legality.
   - [ ] **UX-03.1** Add pin/clock/IP configuration views that edit the same canonical project/constraint/generator model used by CLI.
   - [ ] **UX-03.2** Show build diagnostics, resource costs and timing-completeness results before applying device operations.
   - [ ] **UX-03.3** Render explicit hardware programming plans, identity, consequences and authorization; never hide an erase behind a build action.
-  - [ ] **UX-03.4** Add qualified probe/trigger/capture views with exact bitstream/source identity and offline replay.
+  - [ ] **UX-03.4** Add qualified probe/trigger/capture views with exact bitstream/source identity and DBG-03 offline replay. Expose compiled versus runtime settings, unavailable probes, trigger/sample position, capture integrity and timebase uncertainty; use the same target identity and bounded acquisition contracts as the CLI.
   - [ ] **UX-03.5** Test GUI/CLI parity, undo/migration, inaccessible hardware, stale debug maps and safe cancellation at every workflow step.
-  - [ ] **UX-03.6** Demonstrate real end-to-end workflows and accessible error recovery; retain B4/B5/B7 and hardware-safety evidence.
+  - [ ] **UX-03.6** Demonstrate real end-to-end workflows, actual capture-to-index/view integration and accessible error recovery; retain B4/B5/B7 and hardware-safety evidence. Reference-device GUI success is not Nodal/own-fabric debug qualification; require DBG-05 before advertising that extension.
 
 - [ ] **UX-04 — High-end hierarchical analysis experience**
   - **Depends on:** FND-10, UX-03, CON-05, FLOW-05.

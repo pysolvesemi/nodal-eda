@@ -36,10 +36,10 @@ Hard gate: FND-10. Foundation already establishes basic trust boundaries. This t
   - [ ] **SEC-03.6** Demonstrate isolated team workflows and recorded residual risks; attach B0/B3/B6 and authorization/security evidence.
 
 - [ ] **SEC-04 — Professional service, debug and incident hardening**
-  - **Depends on:** FND-10, SEC-03, FLOW-04, DBG-03.
+  - **Depends on:** FND-10, SEC-03, FLOW-04, DBG-02, DBG-03.
   - **Capability / modules:** Harden advanced remote/hardware/debug services; audit, incident, credential-rotation and retention interfaces.
   - **Budget / non-goals:** B3/B5/B8; no claim of tamper-proof audit or protection beyond the documented threat model.
-  - [ ] **SEC-04.1** Review remote execution and debug capture attack surfaces, data classification, privilege separation and network/service exposure.
+  - [ ] **SEC-04.1** Review remote execution and debug capture attack surfaces, data classification, privilege separation and network/service exposure. DBG-02 is an explicit predecessor because offline DBG-03 no longer carries live-session qualification; review analyzer control separately from programming and active IO/memory writes.
   - [ ] **SEC-04.2** Enforce scoped local/remote IPC, authenticated leases and sensitive-capture access with bounded sessions and revocation.
   - [ ] **SEC-04.3** Implement auditable update, program, export and administrative actions with privacy-preserving retention and deletion policy.
   - [ ] **SEC-04.4** Rehearse vulnerability triage, compromised-key/package response, worker quarantine and customer notification/recovery procedures.

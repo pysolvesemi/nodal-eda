@@ -25,11 +25,11 @@ Hard gate: FND-10. A commercial release is an exact, independently tested suppor
   - [ ] **REL-02.6** Record the candidate qualification decision and reproducible evidence bundle; keep the parent open until all applicable device gates are genuinely satisfied.
 
 - [ ] **REL-03 — First commercial device/tool release**
-  - **Depends on:** FND-10, REL-02, VER-05, CON-04, IP-02, DBG-02.
+  - **Depends on:** FND-10, REL-02, VER-05, CON-04, IP-02, DBG-02, DBG-05.
   - **Capability / modules:** Supported customer release with lifecycle, support and incident processes; release catalog and operations documentation.
   - **Budget / non-goals:** B8; no advertised feature outside the qualified matrix and no GUI requirement unless that release advertises it.
   - [ ] **REL-03.1** Define product acceptance, release ownership, support lifetime, upgrade/rollback and incident/security-response procedures.
-  - [ ] **REL-03.2** Complete qualification of every advertised host/device/flow/IP/programmer/debug profile, including offline and clean-machine tests.
+  - [ ] **REL-03.2** Complete qualification of every advertised host/device/flow/IP/programmer/debug profile, including offline and clean-machine tests. Retain own-fabric/Nodal debug qualification explicitly through DBG-05 after the reference-device split; require DBG-04 for advertised advanced debug and TOOL-06 for advertised Gowin support. Study-only references confer no released capability.
   - [ ] **REL-03.3** Publish honest language/constraint/timing/power support, reproducible examples, errata and hardware recovery guidance.
   - [ ] **REL-03.4** Review all licenses/notices and any optional entitlement mechanism; preserve error/report visibility and documented offline behavior without bypassing rights.
   - [ ] **REL-03.5** Exercise a customer support reproduction, corruption/update failure and old-project migration on final candidate artifacts.

@@ -50,6 +50,12 @@ openFPGALoader, [Advanced usage](https://trabucayre.github.io/openFPGALoader/gui
 
 OpenROAD, [Project documentation](https://openroad.readthedocs.io/en/latest/main/README.html). ASIC physical-design automation precedent. Relevant only to importing/coordinating physical implementation evidence where appropriate; it is not a replacement for FPGA resource-based placement/routing and is not owned by Nodal-EDA.
 
+## Implementation-reference addendum — 2026-09-19
+
+The [open-source implementation catalog](reference-implementations.md) adds actionable REF-01..REF-19 mappings: synthesis/ABC, FPGA P&R/VTR/Tatum, optional Gowin/Apicula, fabric and interchange models, FOEDAG/Raptor, Edalize/FuseSoC, analyzer cores and Rust waveform tooling. Each entry identifies what to inspect, ownership, intended use, acceptance work and evidence limits. Its source-role review is separate from the 2026-09-13 baseline above; exact implementation revisions remain unselected until the owning task pins and qualifies them.
+
+The existing DBG track is expanded rather than duplicated. Conventional-HDL reference-board capture is DBG-02, independently testable offline waveforms are DBG-03, and Nodal-source/own-fabric debug qualification is DBG-05. TOOL-06 is an optional Gowin-device extension, not a replacement for the checkable iCE40 baseline. All new and existing implementation tasks remain open.
+
 ## Research conclusions
 
 Integrate existing engines before writing replacements. Use direct-tool comparisons for orchestration fidelity, formal/simulation for supported generated hardware, independent small reference models for cache/state/configuration semantics, and actual lab/silicon evidence for hardware claims. No single comparison establishes a commercial product. Keep the first release support matrix narrow, explicit, pinned and independently reproducible.

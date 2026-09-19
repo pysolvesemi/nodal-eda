@@ -6,6 +6,8 @@ Follow [ADR-0001](../../adr/0001-rust-core-external-compiler-boundary.md): compi
 
 The [stage-by-stage verification contract](../../verification-pipeline.md) defines mandatory artifact/export and semantic qualification requirements. Tool execution alone is not engine correctness. TOOL-04 now depends on the early VER-03 reference-flow harness; VER-03 no longer depends on TOOL-04, avoiding a cycle and qualifying conventional HDL first.
 
+Use the [implementation-reference catalog](../../reference-implementations.md) for component-level studies and adoption records. Yosys/ABC, nextpnr, VTR/VPR and Tatum guide engine contracts; Edalize/FuseSoC and FPGA Interchange/FASM guide adapters and artifact models. Native algorithms remain with nodal-fpga or external engines, not this product. TOOL-06 adds an optional Gowin-device lane; it is not a replacement for TOOL-02's checkable iCE40 baseline and does not block it, DBG-02 or own-fabric work.
+
 - [ ] **TOOL-01 — Toolchain and device capability resolution**
   - **Depends on:** FND-10.
   - **Capability / modules:** Inspect a supported flow before running it; `eda-adapters`, `eda-packages`, ToolchainLock and DevicePackage.
@@ -13,7 +15,7 @@ The [stage-by-stage verification contract](../../verification-pipeline.md) defin
   - [ ] **TOOL-01.1** Resolve exact tool binaries/runtime libraries/plugins and device/timing/configuration packages into immutable locked identities; distinguish base application dependencies from optional compiler/tool packages.
   - [ ] **TOOL-01.2** Define supported language subset, stage/media types, timing/constraint features, native checkpoint and programming capabilities per tuple; include mapped netlist, actual route selection, feature map, final-image decoder and simulation-model availability.
   - [ ] **TOOL-01.3** Validate part/package/speed/revision consistency and reject mixed databases, unknown features and incompatible schema versions.
-  - [ ] **TOOL-01.4** Add local/offline package discovery with explicit trust and missing-dependency diagnostics; document dependency redistribution notices.
+  - [ ] **TOOL-01.4** Add local/offline package discovery with explicit trust and missing-dependency diagnostics; document dependency redistribution notices. For each selected reference, record exact source/runtime/database identities, study versus integration/redistribution role, license review, maintenance limits and owning acceptance evidence.
   - [ ] **TOOL-01.5** Test fake versions, wrong architectures, incompatible plugins, tampered model files and changed executable libraries.
   - [ ] **TOOL-01.6** Demonstrate capability inspection and failure before expensive work on an invalid tuple; record B0/B3 and compatibility evidence.
 
@@ -60,3 +62,14 @@ The [stage-by-stage verification contract](../../verification-pipeline.md) defin
   - [ ] **TOOL-05.4** Attach fabric RTL/model/configuration and available physical-verification manifests to bring-up bundles with explicit evidence ownership; preserve primitive/tile/configuration proof scope and distinguish user-design implementation from ASIC fabric signoff.
   - [ ] **TOOL-05.5** Run actual target-fabric functional, invalid-package, unsupported-resource and stale-database tests; propagate engine failures exactly. Load the final binary through the real simulated configuration controller, verify initialization/reset and cycle/event behavior against independent golden logic, and test corruption/loader failures before waiting for boards. Forced-configuration models alone do not satisfy this child.
   - [ ] **TOOL-05.6** Demonstrate the qualified own-fabric flow, initial loader evidence and bounded queries; record actual upstream capability evidence, B3/B4/B6 and remaining integrated VER-04/hardware/silicon gates.
+
+- [ ] **TOOL-06 — Optional qualified Gowin reference-device adapter**
+  - **Depends on:** FND-10, TOOL-02, FLOW-03, VER-03, CON-02, HW-02.
+  - **Capability / modules:** Compile and explicitly program a narrow supported Gowin profile; qualified Yosys/nextpnr/Apicula/programmer adapters and device package.
+  - **Budget / non-goals:** B0/B3/B5/B6; optional device expansion, not own-fabric generation, universal Gowin support, vendor equivalence, GAO protocol support or a replacement M1 baseline.
+  - [ ] **TOOL-06.1** Select one actual part/package/revision/board and pin the synthesis family/options, nextpnr Gowin backend/database, Apicula packer/decoder, timing models and programming provider; record artifact provenance, notices and legal distribution boundaries.
+  - [ ] **TOOL-06.2** Qualify the current `synth_gowin` -> selected nextpnr Himbaechel Gowin backend -> `gowin_pack` flow using actual installed capabilities and direct reference scripts; preserve original RTL, mapped netlist, placement/routes, features, constraints, reports and exact final binary.
+  - [ ] **TOOL-06.3** Apply the common VER-03 semantic/route/final-image harness to the declared supported subset with independent golden behavior and qualified decoding; an unpack command or encode/decode round trip alone is not semantic evidence. Keep unavailable exports/primitive models explicitly unqualified and this required child open.
+  - [ ] **TOOL-06.4** Validate pin/bank/clock constraints, supported memory/register modes and timing completeness; reject unsupported device/family combinations and report missing timing/model coverage instead of assuming vendor-tool parity.
+  - [ ] **TOOL-06.5** Exercise explicit HW-02 programming and functional known-answer checks, wrong-device/database/image cases and recoverable interruption; no JTAG analyzer access is inferred from programming success. Any analyzer profile also needs DBG-02 target-specific qualification.
+  - [ ] **TOOL-06.6** Publish exact-device direct/orchestrated, stage-verification and board evidence with actual commands/artifacts and B0/B3/B5/B6; close only the qualified supported subset when all required children pass. Missing final-image verification remains a blocker, not a silent reduction of the common acceptance contract.

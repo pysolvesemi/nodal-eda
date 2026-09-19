@@ -2,14 +2,16 @@
 
 Hard gate: FND-10. Hardware operations are explicit, authorized, non-cacheable effects. A successful build never implicitly programs a board. Device protocol semantics belong to qualified providers/nodal-fpga; this track owns safe sessions and workflows. See [verification](../../verification.md), [budgets](../../performance.md) and [source S11](../../research-sources.md#s11).
 
+Programming and analyzer communication are distinct capabilities. See [REF-13..REF-17](../../reference-implementations.md). A programmer/cable supporting a device does not establish access to its user debug endpoint or Gowin GAO protocol. DBG-02 qualifies one transport (prefer UART on the selected reference board); later JTAG/Ethernet/PCIe paths need their own provider, identity, CDC, timeout and security evidence. No build implicitly arms a capture or enables active stimulus.
+
 - [ ] **HW-01 — Hardware discovery, identity and exclusive leases**
   - **Depends on:** FND-10, TOOL-01.
   - **Capability / modules:** Inspect connected targets safely; `eda-hardware`, HardwareTarget/Lease/Capability schemas.
   - **Budget / non-goals:** B0/B5; discovery must not erase, reconfigure or write irreversible state.
   - [ ] **HW-01.1** Define cable, transport, board, chain-position, device/revision and capability identities without assuming a device ID is globally unique.
-  - [ ] **HW-01.2** Integrate one qualified discovery provider with a simulator/mock transport and explicit permissions/device-driver prerequisites.
+  - [ ] **HW-01.2** Integrate one qualified discovery provider with a simulator/mock transport and explicit permissions/device-driver prerequisites; expose programming and debug-transport capability records separately, including endpoint/core protocol identity and unsupported operations.
   - [ ] **HW-01.3** Acquire exclusive target leases and reject ambiguous selection or simultaneous operations from another client.
-  - [ ] **HW-01.4** Separate read-only inspection from writes; define cancellation, timeout and disconnect states in the hardware protocol.
+  - [ ] **HW-01.4** Separate read-only inspection, analyzer control, programming and active design writes; define cancellation, timeout and disconnect states in the hardware protocol. Capture commands need scoped authorization and exclusive leases, not blanket memory/IO access.
   - [ ] **HW-01.5** Test duplicate IDs, chain changes, cable removal, denied permissions, lease loss and stale target metadata.
   - [ ] **HW-01.6** Demonstrate read-only discovery on an approved board and mock faults; record B5, supported transport and permission limitations.
 
@@ -19,8 +21,8 @@ Hard gate: FND-10. Hardware operations are explicit, authorized, non-cacheable e
   - **Budget / non-goals:** B3/B5; no automatic erase, irreversible fuse/security operations or unconditional retry after uncertainty.
   - [ ] **HW-02.1** Bind each plan to exact bitstream digest, device/package/revision, cable/chain identity, memory address/range and requested operation.
   - [ ] **HW-02.2** Require explicit target selection and authorization at apply time; revalidate identity and lease immediately before the write.
-  - [ ] **HW-02.3** Implement bounded transfer/progress with provider-specific safe cancellation and optional supported readback/checksum verification.
-  - [ ] **HW-02.4** Add independent functional known-answer checks and distinguish transfer success, readback verification and design correctness.
+  - [ ] **HW-02.3** Implement bounded transfer/progress with provider-specific safe cancellation and optional supported readback/checksum verification; publish the resulting exact-image/target/session association and invalidate debug sessions on reprogramming or lost identity.
+  - [ ] **HW-02.4** Add independent functional known-answer checks and distinguish transfer success, readback verification and design correctness. Supply identity evidence to DBG-02 without claiming that a host manifest or plain build token cryptographically attests hardware.
   - [ ] **HW-02.5** Inject wrong target, corrupt image, denied readback, disconnect and power loss on recoverable hardware; preserve unknown state and recovery instructions.
   - [ ] **HW-02.6** Demonstrate a qualified programming/recovery cycle with an explicit safety plan; record B5, actual results and non-supported operations.
 
