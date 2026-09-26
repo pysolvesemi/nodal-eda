@@ -71,10 +71,59 @@ after inspecting live matching workflows. Preserve failures and repair only
 affected requirements on a new head. Merge only after qualification and review,
 then verify the identical tree and record suppressed duplicate post-merge CI.
 
+## Implementation evidence
+
+Implementation is prepared in the FND-01 branch. Remote qualification and
+verified integration remain required; the authoritative checklist is still open.
+
+| Obligation | Delivered source and evidence owner |
+| --- | --- |
+| FND-01.1 | Root Cargo/toolchain/lock files, crates/eda-contracts, apps/cli; four binary-level integration tests exercise help/version, invalid commands and non-Unicode arguments. |
+| FND-01.2 | docs/development/fnd-01.md, CONTRIBUTING.md and policy/architecture.toml ratify ownership and the two-package, zero-third-party application closure. |
+| FND-01.3 | tools/check_roadmap.py validates task ancestry, prerequisites/cycles, Foundation gates and checked-task evidence locators without writing status. |
+| FND-01.4 | tests/test_roadmap.py contains independent miniature roadmaps; docs/evidence/template.md specifies durable evidence and truthful source/merge identity. |
+| FND-01.5 | CONTRIBUTING.md, architecture checker/mutants and the scoped .github/workflows/fnd-01.yml provide executable repository boundaries and the bootstrap route. |
+| FND-01.6 | tools/dev.py and tools/qualify.py retain exact runtime source identities, clean builds, linked libraries, actual CLI output and B0 observations. Final remote qualification/review/integration is pending. |
+
+Local pre-publication checks passed: rustfmt, Clippy with warnings denied,
+four Rust binary-level tests, 33 Python maintenance tests, live roadmap and
+all-feature architecture checks. These are dirty-worktree repair evidence, not
+qualification of a published candidate. Local reports/logs are in ignored out/;
+remote jobs will generate their own exact-head records and immutable artifacts.
+
+The Linux x86-64 clean release build used Rust 1.90.0, an empty Cargo home and
+fresh target directory, --locked --offline --all-features, and an explicit PATH
+containing only approved build tools. Java, Nodal, llvm-config, mlir-opt,
+circt-opt, Yosys and nextpnr were absent from that PATH. Actual ELF dependencies
+were libgcc_s.so.1 and libc.so.6. The Rust compiler's own LLVM implementation is
+an allowed host utility and is not an application runtime dependency.
+
+A local 50-sample warm run measured help p95 1.087 ms and version p95 0.860 ms
+against the unchanged 250 ms B0 limit. Full distributions, exact host and CPU
+observations are emitted by qualify.py; these local observations are not the
+final remote benchmark. The wait4 RSS sample is a process-lifetime peak and may
+include launch effects, not an isolated allocator measurement.
+
+Preserved local failure: the first clean-build measurement attempt completed
+compilation and CLI timing but failed because /usr/bin/time was unavailable.
+It was not counted as a full pass. The revised harness uses posix_spawn/wait4
+for the actual child resource sample without adding that helper dependency;
+subsequent local qualification passed. No budget or correctness gate was removed.
+
+Review so far: explicit self-review of the workspace, CLI, parser/graph logic,
+fixtures, dependency/feature/build/load coverage and exact-branch workflow
+permissions. This is not an independent human approval. The parser review found
+and repaired an empty-track vacuous pass and malformed-root handling; their
+negative regression cases are included. Final published-head review is pending.
+
 ## Current checkpoint
 
-No source implementation, remote qualification or merge has happened yet.
-Next safe action: implement the bounded bootstrap and run its local checks.
+Phase: local implementation complete; ready for exact-head remote targeting.
+Draft PR: https://github.com/pysolvesemi/nodal-eda/pull/1.
+One hourly continuation is enabled for this increment.
+Next safe action: publish the reviewed implementation without a skip annotation
+so the isolated bootstrap push trigger runs. The full job is gated by targeted
+success. Re-read live refs and matching workflows immediately before publication.
 The active worker owns this implementation; continuations must avoid competing
 writes while the current session is publishing.
 

@@ -1,0 +1,70 @@
+name: FND-01 bootstrap
+
+on:
+  push:
+    branches: [increment/fnd-01-bootstrap]
+    paths:
+      - '.github/workflows/fnd-01.yml'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+      - '.gitignore'
+      - 'apps/**'
+      - 'crates/**'
+      - 'policy/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'docs/**'
+      - 'AGENTS.md'
+      - 'CONTRIBUTING.md'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fnd-01-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  targeted:
+    name: FND-01 targeted checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install pinned Rust tools
+        run: rustup toolchain install 1.90.0 --profile minimal --component rustfmt --component clippy --no-self-update
+      - name: Qualify affected bootstrap code
+        run: python3 tools/dev.py targeted
+      - name: Preserve targeted evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: fnd-01-targeted-${{ github.sha }}-${{ github.run_attempt }}
+          path: out/
+          if-no-files-found: error
+
+  full:
+    name: FND-01 full qualification
+    needs: targeted
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install pinned Rust tools
+        run: rustup toolchain install 1.90.0 --profile minimal --component rustfmt --component clippy --no-self-update
+      - name: Qualify clean build and B0 startup
+        run: python3 tools/qualify.py
+      - name: Preserve qualification and demonstrated CLI
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: fnd-01-full-${{ github.sha }}-${{ github.run_attempt }}
+          path: out/
+          if-no-files-found: error
