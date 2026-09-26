@@ -1,0 +1,22 @@
+[workspace]
+members = ["crates/eda-contracts", "apps/cli"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.90"
+publish = false
+
+[workspace.dependencies]
+eda-contracts = { path = "crates/eda-contracts" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = "deny"
+
+[profile.release]
+lto = "thin"
+strip = "debuginfo"

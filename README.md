@@ -1,10 +1,16 @@
 # nodal-eda
 
-A planned Rust-first, headless-first EDA product for the Nodal commercial FPGA ecosystem.
+A Rust-first, headless-first EDA product under development for the Nodal commercial FPGA ecosystem.
 
 `nodal-eda` manages projects, build flows, tool integration, constraints, reports, device packages, programming, debugging, and the eventual desktop experience. It is **not another synthesis engine or FPGA fabric generator**.
 
 ## Development plan
+
+The FND-01 bootstrap provides a pinned Rust workspace, `nodal-eda --help` and
+`nodal-eda --version`, plus executable roadmap/dependency checks. See
+[contribution and build commands](CONTRIBUTING.md), the
+[bootstrap design](docs/development/fnd-01.md) and
+[current FND-01 evidence](docs/evidence/FND-01.md) for qualification status.
 
 Start with the [incremental roadmap](docs/roadmap/README.md). It contains a foundation track and eleven dependent tracks, with individually checkable subtasks and explicit completion gates.
 
@@ -24,6 +30,9 @@ Start with the [incremental roadmap](docs/roadmap/README.md). It contains a foun
 
 Traditional Verilog users must not need Nodal or a JVM. No LLVM/MLIR runtime is required inside the `nodal-eda` core. An initial Nodal integration may use generated Verilog followed by Yosys; direct mapped-netlist integration is gated on an actual supported compiler export, not assumed to exist.
 
-**Status:** documentation and implementation plan only. No product capability, benchmark result, formal proof, device support, or commercial qualification is claimed by this repository yet. The initial roadmap deliberately leaves every implementation checkbox open.
+**Status:** executable help/version and repository-check bootstrap. Project builds,
+real tool/device integration, FPGA programming and commercial qualification remain
+roadmap work. The task files and evidence records distinguish implemented children
+from accepted increment completion; no real-device or HDL capability is implied.
 
 Development takes place on `dev`. This documentation update does not change `main`.

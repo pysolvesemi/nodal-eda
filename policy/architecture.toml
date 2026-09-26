@@ -1,0 +1,12 @@
+# Reviewed FND-01 product dependency inventory; host utilities are separate.
+schema_version = 1
+rust_toolchain = "1.90.0"
+workspace_members = ["apps/cli", "crates/eda-contracts"]
+
+[packages]
+nodal-eda-cli = "apps/cli"
+eda-contracts = "crates/eda-contracts"
+
+[host_utilities]
+required = ["rustc", "cargo", "rustfmt", "clippy", "python3", "git", "cc", "readelf"]
+application_dependencies = false
