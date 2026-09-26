@@ -2,7 +2,7 @@
 
 ## Source of truth
 
-The task list in each track file is authoritative. The index and release milestones reference IDs rather than maintaining a second copy of task state. All initial task boxes are open because the repository contains a plan, not an implementation.
+The task list in each track file is authoritative. The index and release milestones reference IDs rather than maintaining a second copy of task state. The original plan left every task open. Subsequent checked work must have its own implemented deliverable and applicable acceptance evidence.
 
 ## Nested task semantics
 

@@ -2,12 +2,12 @@
 
 ## Readiness audit — 2026-09-26
 
-Phase: implementation preparation; no implementation or CI pass claimed.
+Historical readiness phase: implementation preparation; no implementation or CI pass was claimed at this audit.
 Repository: pysolvesemi/nodal-eda.
 Integration target: dev at fc512e72cfdf49f672ff799d73c29789e36efd75.
 Target tree: 97dbe634db70bf368a25061174f219032496de58.
 Increment branch: increment/fnd-01-bootstrap.
-Parent and all children remain open.
+At readiness, the parent and all children remained open.
 
 Read the live AGENTS.md, full FND-01 checklist, roadmap index, completion policy,
 architecture, ADR-0001, performance contract and stage-verification ownership.
@@ -73,8 +73,8 @@ then verify the identical tree and record suppressed duplicate post-merge CI.
 
 ## Implementation evidence
 
-Implementation is prepared in the FND-01 branch. Remote qualification and
-verified integration remain required; the authoritative checklist is still open.
+The implementation below was qualified on its exact candidate and integrated
+through PR #1. The acceptance section records the actual execution and merge.
 
 | Obligation | Delivered source and evidence owner |
 | --- | --- |
@@ -83,7 +83,7 @@ verified integration remain required; the authoritative checklist is still open.
 | FND-01.3 | tools/check_roadmap.py validates task ancestry, prerequisites/cycles, Foundation gates and checked-task evidence locators without writing status. |
 | FND-01.4 | tests/test_roadmap.py contains independent miniature roadmaps; docs/evidence/template.md specifies durable evidence and truthful source/merge identity. |
 | FND-01.5 | CONTRIBUTING.md, architecture checker/mutants and the scoped .github/workflows/fnd-01.yml provide executable repository boundaries and the bootstrap route. |
-| FND-01.6 | tools/dev.py and tools/qualify.py retain exact runtime source identities, clean builds, linked libraries, actual CLI output and B0 observations. Final remote qualification/review/integration is pending. |
+| FND-01.6 | tools/dev.py and tools/qualify.py retain exact runtime source identities, clean builds, linked libraries, actual CLI output and B0 observations. Actual remote qualification/review/integration is recorded below. |
 
 Local pre-publication checks passed: rustfmt, Clippy with warnings denied,
 four Rust binary-level tests, 33 Python maintenance tests, live roadmap and
@@ -114,18 +114,89 @@ Review so far: explicit self-review of the workspace, CLI, parser/graph logic,
 fixtures, dependency/feature/build/load coverage and exact-branch workflow
 permissions. This is not an independent human approval. The parser review found
 and repaired an empty-track vacuous pass and malformed-root handling; their
-negative regression cases are included. Final published-head review is pending.
+negative regression cases are included. Published-head self-review is recorded below.
 
-## Current checkpoint
+## Acceptance
 
-Phase: local implementation complete; ready for exact-head remote targeting.
-Draft PR: https://github.com/pysolvesemi/nodal-eda/pull/1.
-One hourly continuation is enabled for this increment.
-Next safe action: publish the reviewed implementation without a skip annotation
-so the isolated bootstrap push trigger runs. The full job is gated by targeted
-success. Re-read live refs and matching workflows immediately before publication.
-The active worker owns this implementation; continuations must avoid competing
-writes while the current session is publishing.
+The implementation was accepted through [PR #1](https://github.com/pysolvesemi/nodal-eda/pull/1).
+
+- Tested source: `d2b27088c40c96d8e61559e0d43e69ac72cf9770`.
+- Tested tree: `e1daa082b12abe05f602beb58bd5bfb492976413`.
+- Workflow: `.github/workflows/fnd-01.yml`, ID `367536711`, definition blob `9b8cff5531bdbcdfb56e3ecabc9a54231d33043b`.
+- Actual [run 36224808624](https://github.com/pysolvesemi/nodal-eda/actions/runs/36224808624), attempt 1, event `push`, branch `increment/fnd-01-bootstrap`.
+- Targeted job `108356651326` succeeded: formatting/lint, four Rust tests, 33 Python tests, roadmap/architecture and diff checks. No applicable job or test was skipped.
+- Full job `108356689990` started after targeted success and passed the clean release, all-feature dependency/native-load and B0 requirements.
+- Both downloaded artifact digests, clean checkout identity, tree and all 45 source-file hashes were independently compared with the Git commit.
+- Targeted artifact `10899914232`: SHA256 `b3d3608451ffa954df8c4b4b6567478b3f0fa4bdc43483e1dda545712b96a7cb`.
+- Full artifact `10900630956`: SHA256 `0a4b0704a20a252be9a4f97089efd240657edd6734206199fdc36f2ab14b4fc0`.
+- Demonstrated binary SHA256: `2e86f5c4bd099bd7d5287cddd8874ff9a45cf4ffc78d3e4d5081d122bbe71a54`.
+
+The remote host was Linux x86-64, kernel 6.17.0-1022-azure, glibc 2.39,
+4 logical CPUs (AMD EPYC 9V74), 16,373,452 KiB RAM, Python 3.12.3 and Rust 1.90.0.
+This is the actual declared CI profile, not a claim to have measured the future
+8-CPU/32-GiB reference-host calibration. The application has two local packages
+and no registry/git package dependency. ELF runtime libraries were libc.so.6
+and libgcc_s.so.1. The fresh, offline build used no Nodal/JVM/compiler SDK.
+
+| Actual command | Warm samples | p50 | p95 | B0 limit |
+| --- | --- | --- | --- | --- |
+| `nodal-eda --help` | 50 | 0.764627 ms | 0.865221 ms | 250 ms |
+| `nodal-eda --version` | 50 | 0.794386 ms | 0.891280 ms | 250 ms |
+
+The product-child wait4 peak was 20,480 KiB including process launch effects.
+The optimization review found no justified additional startup/graph optimization.
+The fixture suites retain malformed-input and dependency/build/load rejection
+controls. Broader document/engine/device/performance profiles remain with their
+existing owners; they are not counted as executed here.
+
+Actual CLI output retained in the full artifact:
+
+```text
+$ nodal-eda --version
+nodal-eda 0.1.0
+
+$ nodal-eda --help
+Nodal-EDA — FPGA development workflow
+
+Usage: nodal-eda [--help | --version]
+
+Options:
+-h, --help       Show this help
+-V, --version    Show the product version
+
+This bootstrap provides help and version commands.
+```
+
+Review kind: agent self-review of the complete exact-head diff, ownership,
+negative controls, real logs/artifacts, dependencies, trigger/permission scope,
+measurement limits and demonstrations. No independent human approval is claimed.
+The live repository had no required review rules or unresolved review requests;
+both actual check contexts passed before integration.
+
+Actual implementation merge: `17cd9902f44a832f81cd7df52bd8cc488ac8d3bb`.
+Its ordered parents were `fc512e72cfdf49f672ff799d73c29789e36efd75` and the
+qualified source `d2b27088c40c96d8e61559e0d43e69ac72cf9770`. GitHub's merged flag,
+commit message, final dev ref and identical tree were verified after the merge.
+The merge message contains `[skip ci]`; zero runs were found for its actual SHA.
+`post_merge_ci: skipped`, reason: `qualified-identical-tree-merge`.
+Those are merge/suppression facts, not invented post-merge test execution.
+
+## Evidence and checklist closure
+
+All fifteen FND-01 leaf obligations have their implementation and applicable
+execution evidence above; the six child groups retain every original obligation.
+The evidence/checklist publication uses the same increment branch after the
+verified implementation merge. Its checked state becomes authoritative only
+when that documentation candidate passes its applicable targeting/full checks,
+review and verified identical-tree merge into dev. The follow-up closure PR,
+linked from PR #1, records its own actual run/head/merge identities; preceding
+head results are not relabeled as execution on the closure head.
+
+No later increment or dependent track is started. The hourly continuation is
+kept enabled through evidence integration and the completion demonstration, then
+paused after closure. This record keeps actual implementation merge facts and
+uses the PR/run records for subsequent publication facts without a self-referential
+commit hash or fabricated future receipt.
 
 This increment does not affect generated Verilog (Verilog-*).
 It establishes Rust product and repository infrastructure.

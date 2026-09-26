@@ -4,7 +4,7 @@
 
 Build a high-performance, commercial-grade FPGA development product, beginning with a reproducible headless workflow and growing toward an integrated professional environment. Commercial grade is a release qualification outcome, not a consequence of choosing Rust or drawing a scalable architecture.
 
-This roadmap is an implementation plan. All increment and subtask checkboxes start open. Follow the [completion policy](completion-policy.md): a completed subtask may be checked while its parent stays open until every required subtask and closure gate is satisfied.
+This roadmap is an implementation plan. Task state is maintained in the owning track files, with completed work linked to actual evidence. Follow the [completion policy](completion-policy.md): a completed subtask may be checked while its parent stays open until every required subtask and closure gate is satisfied.
 
 The architectural baseline is the [ownership/directory plan](../architecture.md), [verification strategy](../verification.md), [stage-by-stage verification contract](../verification-pipeline.md), and [performance contract](../performance.md). External precedents and their limits are recorded in [research sources](../research-sources.md), the [implementation-reference catalog](../reference-implementations.md), and the verification contract's primary references. Commands and future schemas in these documents are proposed interfaces, not currently implemented commands.
 
