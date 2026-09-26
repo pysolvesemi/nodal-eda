@@ -39,7 +39,7 @@ TOOL-05 requires simulated own-fabric configuration loading before boards are av
 | SEC | [Security and trust](tracks/security.md) | SEC-01..SEC-04 | FND-10 | Untrusted inputs, signed delivery, multi-user isolation, audit. |
 | VER | [Verification and quality](tracks/verification.md) | VER-01..VER-06 | FND-10 | Independent oracles, synthesis/route/bitstream checks, differential/formal testing, fault injection and release evidence. |
 
-There are **12 tracks, 62 parent increments, 372 immediate child tasks and 36 further nested subtasks** (18 in VER-03 and 18 in DBG-02). Each parent has six named immediate children; VER-03 and DBG-02 have individually checkable descendants. Additional dependencies appear in the individual increment; the table is not a substitute for those dependencies.
+There are **12 tracks, 62 parent increments, 372 immediate child tasks and 174 further nested subtasks** (138 across Foundation, 18 in VER-03 and 18 in DBG-02). Each parent retains six named immediate children. Foundation now splits all 60 existing children into independently evidenced descendants without changing their IDs or task state; see its [structure and acceptance rules](tracks/foundation.md#foundation-checklist-structure-and-acceptance). Additional dependencies appear in the individual increment; the table is not a substitute for those dependencies.
 
 ## Foundation gate and concurrency
 
@@ -57,7 +57,7 @@ FND-01 -> FND-02 -> ... -> FND-09 -> FND-10
                                             REL
 ```
 
-Every non-foundation implementation increment is blocked until **all foundation work through FND-10 is complete**. This does not postpone testing: foundation contains real mock-tool, schema, fault, and determinism tests. Subsequent tracks may run in parallel only when their additional predecessors and external capability contracts are satisfied.
+Every non-foundation implementation increment is blocked until **all foundation work through FND-10 is complete**. This does not postpone testing: foundation contains real mock-tool, schema, fault, and determinism tests. FND-01 introduces minimal remote bootstrap qualification; each subsequent increment extends its own tests, and FND-09 consolidates the harness rather than becoming an earlier increment's prerequisite. Follow the centralized [readiness, targeted CI, hourly continuation and merge rules](../../AGENTS.md). Subsequent tracks may run in parallel only when their additional predecessors and external capability contracts are satisfied.
 
 TOOL-03 is an optional FABulous reference integration and TOOL-06 is an optional Gowin-device adapter; neither is a mandatory predecessor of the first reference-device, own-device or commercial qualification unless that optional capability is advertised. Mandatory independent configuration, behavior and flow verification remains in VER-01 through VER-06 even when that optional adapter is unavailable. VTR/OpenFPGA are optional methodological or qualified same-architecture references, not additional universal dependencies.
 
@@ -95,7 +95,7 @@ Execute these in order for a small team; eligible independent work can be parall
 
 | Order | ID | Result |
 | --- | --- | --- |
-| 1 | FND-01 | Scope, ownership, repository skeleton and roadmap checker. |
+| 1 | FND-01 | Scope, ownership, repository skeleton, roadmap checker and minimal remote bootstrap qualification. |
 | 2 | FND-02 | Versioned contract types, semantic/evidence identities and compatibility rules. |
 | 3 | FND-03 | Tool adapter handshake, checkable-artifact capabilities and executable fake tool. |
 | 4 | FND-04 | Validated project and dependency lock model. |
@@ -103,7 +103,7 @@ Execute these in order for a small team; eligible independent work can be parall
 | 6 | FND-06 | Content-addressed artifacts and safe cache publication, including proof identity. |
 | 7 | FND-07 | Durable events, diagnostics and restart state. |
 | 8 | FND-08 | Initial trust policy and package validation. |
-| 9 | FND-09 | Bootstrap CI, stage-evidence negative fixtures and performance harness. |
+| 9 | FND-09 | Consolidated bootstrap CI, stage-evidence negative fixtures and performance harness. |
 | 10 | FND-10 | Foundation acceptance closes the common gate. |
 | 11 | VER-01 | Independent oracle, SemanticContract corpus and evidence harness. |
 | 12 | TOOL-01 | Pinned toolchain/device-package capability resolution. |
