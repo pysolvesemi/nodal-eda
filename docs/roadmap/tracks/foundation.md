@@ -1,6 +1,6 @@
 # FND — Foundation track
 
-This track establishes executable contracts, not only design documents. All other tracks are blocked by FND-10. Foundation has its own tests and does not depend on VER. Follow the [completion policy](../completion-policy.md) and [performance profiles](../../performance.md). Every checkbox below is implementation work, initially uncompleted.
+This track establishes executable contracts, not only design documents. All other tracks are blocked by FND-10. Foundation has its own tests and does not depend on VER. Follow the [completion policy](../completion-policy.md) and [performance profiles](../../performance.md). Checkboxes record evidenced implementation progress; unfinished work remains open.
 
 The compiler-independent core acceptance rules in [ADR-0001](../../adr/0001-rust-core-external-compiler-boundary.md) are part of FND-01, FND-09 and FND-10. They apply to application dependencies, not the implementation of approved Rust/platform build utilities.
 
@@ -24,8 +24,8 @@ Before starting each increment, apply the
 [readiness gate](../../../AGENTS.md#pre-implementation-increment-readiness-gate).
 Retain the selected feature/profile, applicability decisions, actual validation
 owners, rejected cases and scope limits in its evidence record. Do not silently
-remove, waive or check required work to close a parent. All boxes below remain
-open; this documentation migration asserts no implementation or executed tests.
+remove, waive or check required work to close a parent. The checklist migration itself asserted no implementation or executed tests;
+subsequent checked work must cite its own actual evidence.
 
 ### Review perspectives
 
@@ -74,31 +74,31 @@ prerequisites; fake qualification never grants them test credit.
 
 ## Increment checklist
 
-- [ ] **FND-01 — Workspace, ownership and progress discipline**
+- [x] **FND-01 — Workspace, ownership and progress discipline** Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
   - **Depends on:** none.
   - **Capability / modules:** Build a minimal Rust CLI; establish ownership and `eda-contracts` plus `apps/cli`, maintenance tools and ADRs.
   - **Budget / non-goals:** B0; no empty future-crate forest, GUI, MLIR/CIRCT compiler-framework dependency or CAD algorithm implementation.
-  - [ ] **FND-01.1** Establish Cargo workspace, pinned toolchain, application lockfile, formatting/lint policy and a minimal version/help command.
-    - [ ] **FND-01.1.1** Create the minimal Cargo workspace, pinned Rust toolchain and application lockfile; keep only the contracts and CLI modules needed for this increment.
-    - [ ] **FND-01.1.2** Implement version/help and the formatting/lint entry points; demonstrate a clean build and usable CLI without creating empty future crates.
-  - [ ] **FND-01.2** Ratify the architecture ownership table and ADR-0001 dependency rules; identify interface owners in nodal-hdl and nodal-fpga without asserting their unverified capabilities.
-    - [ ] **FND-01.2.1** Review the product/engine ownership table and record the Nodal-HDL and Nodal-FPGA interface owners, unknown capabilities and future integration owners.
-    - [ ] **FND-01.2.2** Ratify ADR-0001 across direct/transitive dependencies, Cargo features and build/link/load paths; distinguish application compiler libraries from approved host utilities.
-  - [ ] **FND-01.3** Implement documentation checks for unique increment/child IDs, task nesting, valid dependencies, cycles and closed parents with open descendants; ignore fenced examples.
-    - [ ] **FND-01.3.1** Parse Markdown task nesting and stable IDs, ignoring fenced examples; reject duplicate IDs, malformed nesting and missing parents.
-    - [ ] **FND-01.3.2** Validate dependency references and detect actual prerequisite cycles; distinguish a later consumer reference from a dependency edge.
-    - [ ] **FND-01.3.3** Reject closed tasks with required open descendants or missing evidence; accept legitimate partial child progress without automatically closing ancestors.
-  - [ ] **FND-01.4** Add tests proving partial child completion is accepted while premature parent closure and invalid dependencies fail; define the evidence-record format.
-    - [ ] **FND-01.4.1** Add independently authored valid/invalid roadmap fixtures covering partial progress, premature closure, missing evidence, invalid dependencies and fenced examples.
-    - [ ] **FND-01.4.2** Define the durable evidence/checkpoint format with task IDs, scope decisions, source/tree identity, commands, outcomes, limits and integration state.
-  - [ ] **FND-01.5** Document development, contribution, dependency/license review and no-main-write conventions; add architecture-boundary tests that inspect core dependency/features and build/link/load paths, rejecting an intentional in-process compiler-library dependency without banning approved host build utilities.
-    - [ ] **FND-01.5.1** Document contribution, branch/publication, dependency/license review and no-main-write conventions, including the pre-implementation readiness audit.
-    - [ ] **FND-01.5.2** Implement architecture-boundary checks and a deliberate forbidden compiler-library dependency/feature mutant; retain a passing approved-host-utility control.
-    - [ ] **FND-01.5.3** Introduce the minimal remote build/help, roadmap and boundary-check lane with a reviewed dispatch or isolated bootstrap trigger under AGENTS.md; retain FND-09 as the owner of consolidated coverage.
-  - [ ] **FND-01.6** Demonstrate clean core build/help without separately installed LLVM/MLIR/CIRCT SDKs, Nodal-HDL or JVM, plus successful/failed roadmap-check fixtures; record source/tree, allowed host dependencies, commands and B0 measurements before closing.
-    - [ ] **FND-01.6.1** Demonstrate compiler-independent clean build/help and positive/negative roadmap checks; record allowed host dependencies and applicable B0 startup measurements.
-    - [ ] **FND-01.6.2** Review startup work, dependency growth and deterministic checker output; record any justified no-new-optimization result and preserve required validation.
-    - [ ] **FND-01.6.3** Retain exact candidate qualification, review, verified integration and CLI evidence under the shared closure policy; keep all FND-01 obligations open until evidenced.
+  - [x] **FND-01.1** Establish Cargo workspace, pinned toolchain, application lockfile, formatting/lint policy and a minimal version/help command. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.1.1** Create the minimal Cargo workspace, pinned Rust toolchain and application lockfile; keep only the contracts and CLI modules needed for this increment. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.1.2** Implement version/help and the formatting/lint entry points; demonstrate a clean build and usable CLI without creating empty future crates. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+  - [x] **FND-01.2** Ratify the architecture ownership table and ADR-0001 dependency rules; identify interface owners in nodal-hdl and nodal-fpga without asserting their unverified capabilities. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.2.1** Review the product/engine ownership table and record the Nodal-HDL and Nodal-FPGA interface owners, unknown capabilities and future integration owners. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.2.2** Ratify ADR-0001 across direct/transitive dependencies, Cargo features and build/link/load paths; distinguish application compiler libraries from approved host utilities. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+  - [x] **FND-01.3** Implement documentation checks for unique increment/child IDs, task nesting, valid dependencies, cycles and closed parents with open descendants; ignore fenced examples. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.3.1** Parse Markdown task nesting and stable IDs, ignoring fenced examples; reject duplicate IDs, malformed nesting and missing parents. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.3.2** Validate dependency references and detect actual prerequisite cycles; distinguish a later consumer reference from a dependency edge. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.3.3** Reject closed tasks with required open descendants or missing evidence; accept legitimate partial child progress without automatically closing ancestors. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+  - [x] **FND-01.4** Add tests proving partial child completion is accepted while premature parent closure and invalid dependencies fail; define the evidence-record format. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.4.1** Add independently authored valid/invalid roadmap fixtures covering partial progress, premature closure, missing evidence, invalid dependencies and fenced examples. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.4.2** Define the durable evidence/checkpoint format with task IDs, scope decisions, source/tree identity, commands, outcomes, limits and integration state. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+  - [x] **FND-01.5** Document development, contribution, dependency/license review and no-main-write conventions; add architecture-boundary tests that inspect core dependency/features and build/link/load paths, rejecting an intentional in-process compiler-library dependency without banning approved host build utilities. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.5.1** Document contribution, branch/publication, dependency/license review and no-main-write conventions, including the pre-implementation readiness audit. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.5.2** Implement architecture-boundary checks and a deliberate forbidden compiler-library dependency/feature mutant; retain a passing approved-host-utility control. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.5.3** Introduce the minimal remote build/help, roadmap and boundary-check lane with a reviewed dispatch or isolated bootstrap trigger under AGENTS.md; retain FND-09 as the owner of consolidated coverage. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+  - [x] **FND-01.6** Demonstrate clean core build/help without separately installed LLVM/MLIR/CIRCT SDKs, Nodal-HDL or JVM, plus successful/failed roadmap-check fixtures; record source/tree, allowed host dependencies, commands and B0 measurements before closing. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.6.1** Demonstrate compiler-independent clean build/help and positive/negative roadmap checks; record allowed host dependencies and applicable B0 startup measurements. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.6.2** Review startup work, dependency growth and deterministic checker output; record any justified no-new-optimization result and preserve required validation. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
+    - [x] **FND-01.6.3** Retain exact candidate qualification, review, verified integration and CLI evidence under the shared closure policy; keep all FND-01 obligations open until evidenced. Evidence: [FND-01 acceptance](../../evidence/FND-01.md#acceptance)
 
 - [ ] **FND-02 — Versioned contracts and compatibility semantics**
   - **Depends on:** FND-01.
